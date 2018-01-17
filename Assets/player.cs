@@ -5,6 +5,7 @@ using UnityEngine;
 public class player : MonoBehaviour {
 
     public float speed = 10f;
+    public float mapWidth = 5f;
 
     private Rigidbody2D rb;
 
@@ -19,12 +20,17 @@ public class player : MonoBehaviour {
     {
         float x = Input.GetAxis("Horizontal")* Time.fixedDeltaTime* speed;
 
-        rb.MovePosition(rb.position + Vector2.right * x);
+        Vector2 newPosition = rb.position + Vector2.right * x;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, -mapWidth, mapWidth);
+
+        rb.MovePosition(newPosition);
+
     }
     
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
 }
